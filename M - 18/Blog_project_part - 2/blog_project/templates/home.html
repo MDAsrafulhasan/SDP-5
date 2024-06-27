@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contant %}
+
+
+<div class="d-flex flex-wrap px-5 pt-3 align-items-center">
+
+    <div class="col-6">
+        <h1>Welcome to django</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit quo assumenda vero quis recusandae autem adipisci ducimus ipsa commodi exercitationem illum odit eos doloribus obcaecati maiores, asperiores omnis consectetur labore.</p>
+    </div>
+
+    <div class="col-6">
+        <img src="{% static 'header.jpg' %}" alt="">
+    </div>
+
+</div>
+
+<div class="d-flex flex-wrap p-4">
+    <div class="col-2 bg-white p-4">
+        <h3 style="font-weight: bold;">All categories</h3>
+        {% for cat in categories %}
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="categories" id="{{cat.id}}">
+            <label class="form-check-label" for="{{cat.id}}">
+                <a href="{% url 'category_wise_post' cat.slug%}" style="text-decoration: none;">{{cat.name}}</a>
+            </label>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="col-10 p-3">
+        <h3>{{data|length}} results fount</h3>
+        <div class="d-flex flex-wrap px-5 pt-5">
+            {% for post in data %}
+            <div class="col-sm-3 ">
+                <div class="card mx-2">
+                    <div class="card-body">
+                        <h5 class="card-title">{{post.title}}</h5>
+                        <p class="card-text">{{post.content}}</p>
+                        <p>Author : {{post.author.first_name}} {{post.author.last_name}}</p>
+                        <p>
+                            Category : {% for cat in post.catagory.all %}
+                            <button class="btn btn-primary btn-sm m-2" disabled> {{cat.name}} </button>
+                            {% endfor %}
+
+                        </p>
+                        <a href="{% url 'edit_post' post.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete_post' post.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
