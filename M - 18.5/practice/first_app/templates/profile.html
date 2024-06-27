@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content1 %}
+
+    {% if messages %}
+    {% for m in messages %}
+    <small class="btn text-white m-4" style="background-color: green;">{{m}}</small>
+    {% endfor %}
+    {% endif %}
+
+
+<h1>Welcome to profile page</h1>
+<h1>hello {{user}}</h1>
+<br>
+<p><a href="{% url 'change_pass' %}">Change your password</a></p>
+<p><a href="{% url 'change_pass2' %}">Change your password without old password</a></p>
+
+{% endblock %}
