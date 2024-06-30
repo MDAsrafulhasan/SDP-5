@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block contant1 %}
+
+<!-- 
+<ul>
+  {% for data in datas %}
+
+  {% if request.user.is_authenticated %}
+  <a href="{% url 'edit_musician' data.id %}">
+    <li>{{ data }}</li>
+  </a>
+  {% else %}
+  <li>{{ data }}</li>
+  {% endif %}
+
+  {% endfor %}
+</ul> -->
+
+<div class="container ">
+    
+
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Musician Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Album Rating</th>
+            <th scope="col">Instrument Type</th>
+            <th scope="col">Album Name</th>
+            <th scope="col">Release Date</th>
+            {% if request.user.is_authenticated %}
+            <th scope="col">Actions</th>
+            {% endif %}
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in datas %}
+
+          <tr>
+            <th scope="row">{{data.id}}</th>
+            {% if request.user.is_authenticated %}
+            <td><a href="{% url 'edit_musician' data.musicians.id %}">{{data.musicians.First_Name}} {{data.musicians.Last_Name}}</a></td>
+            {% else %}
+            <td>{{data.musicians.First_Name}} {{data.musicians.Last_Name}}</td>
+            {% endif %}
+            <td>{{data.musicians.Email}}</td>
+            <td>{{data.rating}}</td>
+            <td>{{data.musicians.Instrument_Type}}</td>
+            <td>{{data.Album_name}}</td>
+            <td>{{data.Album_release_date}}</td>
+            {% if request.user.is_authenticated %}
+            <td> 
+              <a href="{% url 'edit_album' data.id %}" class="btn btn-primary">Edit</a>
+              <a href="{% url 'delete_album' data.id %}" class="btn btn-danger">Delete</a>
+           </td>
+            {% endif %}
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+</div>
+{% endblock contant1 %}

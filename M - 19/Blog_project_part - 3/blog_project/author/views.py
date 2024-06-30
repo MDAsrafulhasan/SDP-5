@@ -63,6 +63,7 @@ class ClassView_UserLogin(LoginView):
     def form_valid(self, form):
         messages.success(self.request,"Logged in successfully")
         return super().form_valid(form)
+    
     def form_invalid(self, form):
         messages.success(self.request,"Logged in information incorrect")
         return super().form_invalid(form)
