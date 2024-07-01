@@ -53,11 +53,15 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
 class ClassView_UserRegister(CreateView):
     template_name = 'register.html'
     form_class = forms.UserRegister
     success_url = reverse_lazy('register')
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('table_page')
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         messages.success(self.request , "Account created successfully")
@@ -71,6 +75,12 @@ class ClassView_UserRegister(CreateView):
 
 class ClassView_UserLogin(LoginView):
     template_name = 'register.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('table_page')
+        return super().dispatch(request, *args, **kwargs)
+    
     def get_success_url(self):
         return reverse_lazy('album_page')
     def form_valid(self, form):
