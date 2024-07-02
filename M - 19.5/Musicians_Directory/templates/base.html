@@ -52,16 +52,23 @@
 
 
             {% if request.user.is_authenticated %}
-            <li class="nav-item">
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <li class="nav-item mx-3">
+                    <button class="nav-link btn btn-warning text-dark" >Logout</button>
+                </li>
+                
+            </form>
+            <!-- <li class="nav-item">
                 <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
                     {% csrf_token %}
                 </form>
-                <!-- <button style="background-color: white;"> -->
+                <button style="background-color: white;">
                     <a class="nav-link btn btn-warning text-dark"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <b style="color: black;">Logout</b>
                     </a>
-                <!-- </button> -->
-            </li>
+                </button>
+            </li> -->
 
 
             {% else %}

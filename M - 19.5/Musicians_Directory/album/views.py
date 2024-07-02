@@ -96,10 +96,10 @@ class ClassView_UserLogin(LoginView):
         context['type'] = 'Login'
         return context
     
-@method_decorator(login_required,name="dispatch")
-class ClassView_UserLogout(LoginRequiredMixin,LogoutView):
-    next_page = reverse_lazy('home_page')
-    login_url = reverse_lazy('home_page')
+# @method_decorator(login_required,name="dispatch")
+# class ClassView_UserLogout(LoginRequiredMixin,LogoutView):
+#     next_page = reverse_lazy('home_page')
+#     login_url = reverse_lazy('home_page')
 
     # def get_context_data(self, **kwargs):
     #     messages.success(self.request , "logged out successfully")
