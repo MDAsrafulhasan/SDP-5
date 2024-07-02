@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content1 %}
+
+<div class="d-flex flex-wrap  px-5 pt-3 align-items-center">
+
+    <div class="col-6">
+    <h1> Welcome to Car Website</h1>
+    <p>Cars, a cornerstone of modern transportation, have transformed the way we live, work, and travel. Emerging in the late 19th century, cars evolved from luxury items for the affluent to essential commodities for the masses, thanks to innovations like Henry Ford's assembly line. They provide unprecedented freedom and flexibility, enabling people to commute to work, explore distant places, and conduct business efficiently. Modern cars come in various types, including sedans, SUVs, electric vehicles, and hybrids, offering options for diverse needs and preferences. Technological advancements have made cars safer and more reliable, with features like airbags, anti-lock brakes, and advanced driver-assistance systems.</p>
+    </div>
+
+    <div class="col-6">
+        <img src="{% static 'Cars.jpg' %}" style="width: 65%;" alt="">
+    </div>
+
+</div>
+
+<br>
+<br>
+<br>
+<div class="col-12">
+
+    <h3 class="p-5"> Total car found : {{data | length}} </h3>
+    <div class="d-flex" >
+        {% for ban in brand %}
+        <div class="col-3 " style="padding-left: 100px;">
+            <input type="radio" class="btn-check" name="brand" id="{{ban.id}}" autocomplete="off">
+        <label class="btn" for="{{ban.id}}">
+            <a class="text-decoration-none" href="{% url 'brand_wise' ban.slug %}"> {{ban.name}} </a>
+        </label>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<br>
+
+
+
+
+<div class="d-flex flex-wrap">
+    {% for car in data %}
+    <div class="card d-flex flex-wrap m-3" style="width: 18rem;">
+        <img src="{{car.image.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Car title : {{car.name}}</h5>
+          <p class="card-title">Price : ${{car.price}}</p>
+          <p class="card-title">Brand : {{car.brand.name}}</p>
+
+          <a href=" {% url 'car_details' car.id %} " class="btn btn-primary">View details</a>
+
+        </div>
+      </div>
+      {% endfor %}
+</div>
+
+
+{% endblock %}
